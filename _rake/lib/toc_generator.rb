@@ -1,8 +1,6 @@
 require 'yaml'
 require 'json'
 require 'kramdown'
-require 'rexml/document'
-require 'rexml/xpath'
 
 module UpsourceDocs
   class TocGenerator
@@ -17,19 +15,10 @@ module UpsourceDocs
       content = File.read(path)
       kramdown_config = kramdown_config.merge({:html_to_native => true})
       kramdown_doc = Kramdown::Document.new(content, kramdown_config)
-      kramdown_doc_content = <<-XML
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <root>
-          #{kramdown_doc.to_html}
-        </root>
-      XML
 
-      kramdown_doc_content = kramdown_doc_content.gsub(/<!--(.*?)-->/m, '')
-
-      xml = REXML::Document.new kramdown_doc_content
-      xml.elements.each("/root/*") do |node|
-        items = extract_from_node(node)
-        toc.concat(items) if items != nil
+      kramdown_doc.root.children.each do |c|
+        item = extract_from_node(c)
+        toc.concat(item) if item != nil
       end
 
       # Removing headers of empty sections
@@ -54,60 +43,61 @@ module UpsourceDocs
 
 
     private
-    # @param node {REXML::Node}
-    # @return {Hash}
     def self.extract_from_node(node)
       items = []
 
-      case node.name
-        when 'ul'
-          REXML::XPath.each(node, './li') do |node|
-            item = extract_items(node)
-            items.push(item) if item != nil
-          end
+      case node.type
+        when :ul
+          items.concat(extract_items(node))
 
-        when 'h2'
-          items.push(extract_header(node))
+        when :header
+          items.push(extract_header(node)) if node.options[:level] == 2
       end
 
       return items.length > 0 ? items : nil
     end
 
-    # @param node {REXML::Node}
-    # @return {Hash}
-    def self.extract_header(header_node)
-      return {
-          :title => header_node.text(),
-          :type => self::ITEM_TYPE_HEADER
-      }
+    def self.extract_items(ul_node)
+      items = []
+
+      ul_node.children.select { |n| n.type == :li }.each do |li_node|
+        items.push(extract_item(li_node))
+      end
+
+      return items
     end
 
-    # @param node {REXML::Node}
-    # @return {Hash}
-    def self.extract_items(li_node)
-      item = nil
+    def self.extract_item(li_node)
+      item = {}
 
-      REXML::XPath.each(li_node, 'a') do |link|
-        href = link.attribute('href').to_s
-        id = File.basename(href, File.extname(href))
-        is_external = href.start_with?('http://', 'https://', 'ftp://', '//')
-        item = {
-            :id => id,
-            :title => link.text(),
-            :url => href
-        }
-        item[:is_external] = true if is_external
-        pages = []
+      p = li_node.children[0]
+      case p.children[0].type
+        when :text
+          item[:title] = p.children[0].value.strip
 
-        REXML::XPath.each(li_node, 'ul/li') do |li|
-          pages.push(extract_items(li))
-        end
+        when :a
+          a = p.children[0]
+          href = a.attr['href']
+          item[:id] = File.basename(href, File.extname(href))
+          item[:title] = a.children[0].value.strip
+          item[:url] = href
+          is_external = href.start_with?('http://', 'https://', 'ftp://', '//')
+          item[:is_external] = true if is_external
+      end
 
-        item['pages'] = pages unless pages.empty?
+      li_node.children.drop(1).each do |child|
+        pages = extract_items(child) if child.type == :ul
+        item[:pages] = pages if pages != nil
       end
 
       return item
     end
 
+    def self.extract_header(header_node)
+      return {
+        :title => header_node.options[:raw_text].strip,
+        :type => self::ITEM_TYPE_HEADER
+      }
+    end
   end
 end
