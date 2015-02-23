@@ -78,6 +78,7 @@ module UpsourceDocs
         when :a
           a = p.children[0]
           href = a.attr['href']
+          href = href.chomp(File.extname(href)) + '.html'
           item[:id] = File.basename(href, File.extname(href))
           item[:title] = a.children[0].value.strip
           item[:url] = href
