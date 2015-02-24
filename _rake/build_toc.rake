@@ -3,7 +3,7 @@ task :build_toc do
   src_dir = CONFIG[:source_dir]
   toc_file = ENV['dest'] || "#{src_dir}/HelpTOC.json"
 
-  load "#{src_dir}/lib/toc_generator.rb"
+  load "#{src_dir}/_rake/lib/toc_generator.rb"
 
   kramdown_config = YAML::load_file("#{src_dir}/_config.yml")['kramdown']
   toc = UpsourceDocs::TocGenerator.extract("#{src_dir}/_SUMMARY.md", kramdown_config)
