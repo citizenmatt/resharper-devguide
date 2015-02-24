@@ -2,3 +2,7 @@ node_modules/
 _book/
 .grunt/
 .idea/
+
+# Ignore the webhelp-template folder for now
+# This should be a submodule, but it's private, so I've included it as a link for now
+webhelp-template/

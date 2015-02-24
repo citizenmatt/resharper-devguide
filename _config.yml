@@ -1,0 +1,23 @@
+product_name: Upsource
+product_version: 1.0
+
+markdown: kramdown
+markdown_ext: md
+kramdown:
+  input: GFM2
+  hard_wrap: false
+  auto_ids: false
+highlighter: pygments
+
+exclude:
+  - '*.scss'
+  - '.build.cmd'
+  - README*
+  - Vagrantfile*
+  - Rakefile
+  - lib
+  - webhelp-template
+
+defaults:
+  - values:
+      layout: 'webhelp'
