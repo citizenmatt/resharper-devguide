@@ -1,6 +1,10 @@
 product_name: Upsource
 product_version: 1.0
 
+# It's a shame we can't change the location of _includes via config
+plugins: _jekyll/_plugins
+layouts: _jekyll/_layouts
+
 markdown: kramdown
 markdown_ext: md
 kramdown:
