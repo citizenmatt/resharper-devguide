@@ -12,7 +12,6 @@ highlighter: pygments
 exclude:
   - '*.scss'
   - '.build.cmd'
-  - README*
   - Vagrantfile*
   - Rakefile
   - lib
