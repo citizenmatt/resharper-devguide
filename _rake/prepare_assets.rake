@@ -5,7 +5,8 @@ task :prepare_assets do
   appdest = 'app'
 
   # webhelp template
-  RakeFileUtils.cp 'webhelp-template/app/templates/page.html', '_includes'
+  RakeFileUtils.mkdir_p '_includes'
+  RakeFileUtils.cp 'webhelp-template/app/templates/page.html', '_includes/page.html'
 
   # assets dir
   RakeFileUtils.mkdir_p %W(#{appdest}/css #{appdest}/fonts #{appdest}/img #{appdest}/js/vendor/requirejs)
