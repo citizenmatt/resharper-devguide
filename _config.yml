@@ -25,6 +25,10 @@ kramdown:
   input: GFM2
   hard_wrap: false
   auto_ids: false
+  toc_levels: 2..6
+
+# Use pygments for syntax highlighting {% highlight ruby %}...{% endhighlight %} snippets.
+# The custom kramdown parser understands GFM code fences and internally uses pygments
 highlighter: pygments
 
 exclude:

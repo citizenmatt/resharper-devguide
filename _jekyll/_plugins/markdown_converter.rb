@@ -28,7 +28,7 @@ module Kramdown
         if @options[:auto_ids] && !attr['id']
           attr['id'] = el_id
         end
-        @toc << [el.options[:level], attr['id'], el.children] if attr['id'] && in_toc?(el)
+        @toc << [el.options[:level], el_id, el.children] if el_id && in_toc?(el)
         level = output_header_level(el.options[:level])
 
         if level <= 3
@@ -81,10 +81,6 @@ module Kramdown
         "<code#{html_attributes(attr)}>#{code}</code>"
       end
 
-      def convert_blockquote(el, indent)
-        format_as_indented_block_html(el.type, el.attr, inner(el, indent), indent)
-      end
-
       def convert_a(el, indent)
         res = inner(el, indent)
         attr = el.attr.dup
@@ -97,10 +93,6 @@ module Kramdown
           res = obfuscate(res) if res == mail_addr
         end
         format_as_span_html(el.type, attr, "<span>#{res}</span>")
-      end
-
-      def convert_img(el, indent)
-        "<img#{html_attributes(el.attr)} />"
       end
 
       def pygmentize(code, lang, highlight_lines = nil)
