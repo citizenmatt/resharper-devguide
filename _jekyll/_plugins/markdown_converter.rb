@@ -41,25 +41,30 @@ module Kramdown
         anchor + header
       end
 
+      # Convert a <code> block
+      # Overrides Html#convert_codeblock to support highlighting lines in the class
+      # attribute (class="csharp{1-3}") and to change the generated elements and attributes
+      # to use expected webhelp values
       def convert_codeblock(el, indent)
         attr = el.attr.dup
         lang = self.extract_code_language(attr) || 'text'
         highlight_lines = ''
-        
+
         if attr['class'] and attr['class'].scan(/\{[\d\-\,]+\}/).length > 0
           lang_parts = attr['class'].split('{')
           highlight_lines = "{#{lang_parts[1]}"
         end
 
-        code = pygmentize(el.value, lang, highlight_lines)
+        code = highlight_code(el.value, lang, :block, { :highlight_lines => highlight_lines })
         code_attr = {}
         code_attr['class'] = "code-block__wrapper"
         code_attr['class'] += " code-block _highlighted lang_#{lang}" if lang
 
-        "<pre><code#{html_attributes(code_attr)}>#{code}</code></pre>\n"
+        format_as_block_html('pre', {}, format_as_span_html('code', code_attr, code), 0)
       end
 
-      # Extract the code block/span language from the attributes.
+      # Extract the code block/span language from the class attribute, if specified.
+      # Skip any {} chars (used for highlighting lines)
       def extract_code_language(attr)
         if attr['class']
           class_attr = attr['class']
@@ -72,13 +77,16 @@ module Kramdown
         end
       end
 
+      # Convert a code span element
+      # Overrides Html#convert_codespan to provide different class attributes, as the default
+      # implementation only provides 'highlighter-pygments'
       def convert_codespan(el, indent)
         attr = el.attr.dup
         lang = extract_code_language!(attr) || 'text'
-        code = pygmentize(el.value, lang)
+        result = highlight_code(el.value, lang, :span)
         attr['class'] = 'code'
         attr['class'] += " highlight language-#{lang}" if lang
-        "<code#{html_attributes(attr)}>#{code}</code>"
+        format_as_span_html('code', attr, result)
       end
 
       def convert_a(el, indent)
@@ -94,30 +102,38 @@ module Kramdown
         end
         format_as_span_html(el.type, attr, "<span>#{res}</span>")
       end
+    end
 
-      def pygmentize(code, lang, highlight_lines = nil)
-        hl_lines = ''
-        
-        if highlight_lines
-          hl_lines = highlight_lines.gsub(/[{}]/, '').split(',').map do |ln|
-            if matches = /(\d+)-(\d+)/.match(ln)
-              ln = Range.new(matches[1], matches[2]).to_a.join(' ')
-            end
-            ln
-          end.join(' ')
-        end
-        
-        if lang
-          Pygments.highlight(code,
-            :lexer => lang,
-            :options => {
-                :encoding => 'utf-8', 
-                :nowrap => true,
-                :hl_lines => hl_lines
-            }
-          )
-        else
-          escape_html(code)
+    module SyntaxHighlighter
+      module Pygments
+        ::Kramdown::Converter.add_syntax_highlighter(:pygments, Pygments)
+
+        def self.call(converter, text, lang, type, code_opts)
+          # TODO: Merge this with :options below
+          opts = converter.options[:syntax_highlighter_opts].dup
+
+          hl_lines = ''
+          highlight_lines = code_opts[:highlight_lines] || ''
+          if highlight_lines
+            hl_lines = highlight_lines.gsub(/[{}]/, '').split(',').map do |ln|
+              if matches = /(\d+)-(\d+)/.match(ln)
+                ln = Range.new(matches[1], matches[2]).to_a.join(' ')
+              end
+              ln
+            end.join(' ')
+          end
+
+          if lang
+            ::Pygments.highlight(text,
+                               :lexer => lang || 'text',
+                               :options => {
+                                 :encoding => 'utf-8',
+                                 :nowrap => true,
+                                 :hl_lines => hl_lines
+                               })
+          else
+            escape_html(text)
+          end
         end
       end
     end
@@ -132,6 +148,5 @@ module Kramdown
       FENCED_CODEBLOCK_MATCH = /^(([~`]){3,})\s*?(\w+[\{\}\,\d\-]*?)?\s*?\n(.*?)^\1\2*\s*?\n/m
     end
   end
-
 end
 
