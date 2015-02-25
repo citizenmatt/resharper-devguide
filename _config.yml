@@ -15,8 +15,15 @@ layouts: _jekyll/_layouts
 # and 'site.baseurl' would always be used, but assumed to have a trailing slash
 baseurl: /
 
+# Use the kramdown markdown processor, but make sure it doesn't try to process .md files.
+# Our plugin converter will handle .md and do the markdown processing and conversion
 markdown: kramdown
-markdown_ext: md
+markdown_ext: not_md
+
+# Tell kramdown to the use the GFM2 parser so that it will parse GFM
+# Tell the kramdown markdown processor to use the GFM2 parser. This derives from kramdown's
+# GFM parser (which extends the default kramdown parser with GFM code fence support) to add
+# support for highlighting a line, e.g. ```csharp{1 23}
 kramdown:
   input: GFM2
   hard_wrap: false
