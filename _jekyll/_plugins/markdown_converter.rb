@@ -1,5 +1,6 @@
 require 'kramdown'
 require 'pygments'
+require 'uri'
 
 module Jekyll
   module Converters
@@ -89,17 +90,24 @@ module Kramdown
         format_as_span_html('code', attr, result)
       end
 
+      # Override Html#convert_a to identify external links. Also converts .md links to .html
       def convert_a(el, indent)
         res = inner(el, indent)
         attr = el.attr.dup
         attr['href'] = '' if attr['href'].nil?
-        is_external = attr['href'].start_with?('http://', 'https://', 'ftp://', '//')
+        href = attr['href']
+        is_external = href.start_with?('http://', 'https://', 'ftp://', '//')
         attr['data-bypass'] = 'yes' if is_external
-        if attr['href'].start_with?('mailto:')
-          mail_addr = attr['href'][7..-1]
+        if href.start_with?('mailto:')
+          mail_addr = href[7..-1]
           attr['href'] = obfuscate('mailto') << ":" << obfuscate(mail_addr)
           res = obfuscate(res) if res == mail_addr
         end
+
+        uri = URI(href)
+        uri.path = uri.path.chomp(File.extname(uri.path)) + '.html' if File.extname(uri.path) == '.md' and !is_external
+        attr['href'] = uri.to_s
+
         format_as_span_html(el.type, attr, "<span>#{res}</span>")
       end
     end
