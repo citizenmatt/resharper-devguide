@@ -1,5 +1,6 @@
-product_name: Upsource
-product_version: 1.0
+product_name: ReSharper
+#product_version: 1.0
+product_type: DevGuide
 
 # It's a shame we can't change the location of _includes via config
 plugins: _jekyll/_plugins
