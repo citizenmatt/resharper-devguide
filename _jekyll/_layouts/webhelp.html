@@ -29,4 +29,5 @@
 
 {% endcapture %}
 {% capture rendered_content %}{% include page.html %}{% endcapture %}
-{{ rendered_content | replace:'</head>','<link  rel="stylesheet" href="styles/styles.css"></head>' }}
+{% capture local_style_sheet %}<link  rel="stylesheet" href="{{site.baseurl}}styles/styles.css"></head>{% endcapture %}
+{{ rendered_content | replace:'</head>', local_style_sheet }}
