@@ -1,8 +1,11 @@
+---
+---
+
 # Implementing IQuickDocProvider
 
 The `IQuickDocProvider` interface provides two methods:
 
-```cs
+```csharp
 public interface IQuickDocProvider
 {
   bool CanNavigate(IDataContext context);
@@ -18,7 +21,7 @@ The provider queries the passed in `IDataContext` to find data that it needs to 
 
 >**Note** Retrieving the language can be done using the document from the `IDataContext`, and passing it, together with instances of `DocumentManager` and `ISolution` (injected into the constructor of your component) to the `PresentationUtil.GetPresentationLanguageByContainer` method:
 >
-> ```cs  
+> ```csharp
 > var document = context.GetData(DataConstants.DOCUMENT);
 > if (document != null)
 >   projectFile = myDocumentManager.TryGetProjectFile(document);
@@ -29,7 +32,7 @@ The provider queries the passed in `IDataContext` to find data that it needs to 
   
 You need to decorate your `IQuickDocProvider` class with `QuickDocProviderAttribute`, and pass a priority into the constructor. The list of providers maintained by `QuickDocManager` is an ordered list, with the lowest priority being at the start of the list (any new items being added to the `QuickDocManager`'s `IViewable<IQuickDocProvider>` are inserted in the correct position in the list). The majority of the default providers have a priority of `0`. You only need to provide a higher or lower priority if the items you're intending to document are also handled by the default providers, and you wish to override or provide a fallback.
 
-```cs
+```csharp
 public class QuickDocProviderAttribute : SolutionComponentAttribute
 {
 	public QuickDocProviderAttribute(int priority);

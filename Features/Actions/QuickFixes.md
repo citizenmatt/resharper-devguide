@@ -1,3 +1,6 @@
+---
+---
+
 # Quick-Fixes and Context Actions
 
 > **Warning** This topic relates to ReSharper 8, and has not been updated to ReSharper 9 or the ReSharper Platform.
@@ -28,7 +31,7 @@ In addition to ‘plain text’ offered by `IBulbAction`, your bulb action can a
 
 To support it, your bulb action must also implement the `IBulbItemRichText` interface. This interface has a property called `RichText` that contains a definition of the text shown in the menu, including formatting changes such as bold text or a different text colour. Here’s an example:
 
-```cs
+```csharp
 public RichText RichText
 {
   get
@@ -92,7 +95,7 @@ Let’s start with the CA constructor. As mentioned above, it should have one pa
 
 Here is an example from a C# context action:
 
-```cs
+```csharp
 [ContextAction(Description="Foo",Group="C#",Name="Foo", Priority=1)]
 public class OrdinaryContextAction : IContextAction
 {
@@ -109,7 +112,7 @@ public class OrdinaryContextAction : IContextAction
 
 Now it’s time to implement the interface members. The first, an `IsAvailable()` method is used to check whether this context action is available. If it is, the `CreateBulbItems()` method will be called. If not, it's not called, and no items are added for this action. The `IsAvailable()` method is implemented by looking at the context data provider we were passed in the constructor, and deciding if our action is valid for the current location. There are several properties on the method that are useful, for example, we can get at the current `ITextControl`, `Selection` and `CaretOffset`. More importantly, we can look at the current node in the PSI syntax tree - the `SelectedElement` property gives us the `ITreeNode` of the PSI syntax tree at the current caret offset. We can downcast this to a more specific type, such as `IMethodDeclaration` or `IAssignmentExpression`. We can also get the tree nodes before and after the caret, using the provider's `TokenBeforeCaret` and `TokenAfterCaret`. However, the `GetSelectedElement<T>` method is most useful, because it will walk up the syntax tree looking for a containing node of the correct type. For example, we can use `GetSelectedElement<IMethodDeclaration>(true, true)` to get the containing method declaration, even if the node we're currently on is an expression. We can check to see if the value is null to ensure we're in the right place, and we can walk the contents of the method declaration node to look inside the method body or parameters, etc.
 
-```cs
+```csharp
 public bool IsAvailable(IUserDataHolder cache)
 {
   return provider.GetSelectedElement<IMethodDeclaration>(true, true) != null;
@@ -118,13 +121,13 @@ public bool IsAvailable(IUserDataHolder cache)
 
 The next interface member is the one that populates the bulb menu. The method is defined as
 
-```cs
+```csharp
 public void CreateBulbItems(BulbMenu menu)
 ```
 
 and the idea is that you use the `menu` parameter to define the structure of the menu, as described in the previous section. For instance, the implementation can be as simple as
 
-```cs
+```csharp
 public void CreateBulbItems(BulbMenu menu)
 {
   menu.ArrangeContextAction(new FooBulbAction());
@@ -147,7 +150,7 @@ The constructor parameter that the quick-fix takes must correspond to the highli
 
 Note that `BulbMenu.ArrangeQuickFixes()` requires a set of pairs of bulb actions and severities. Thus, if you keep an internal list of `IBulbAction` elements, you can convert it to a set of pairs using such code as:
 
-```cs
+```csharp
 menu.ArrangeQuickFixes(_items.Select(_ => Pair.Of(_, severity)));
 ```
 

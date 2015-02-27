@@ -1,3 +1,6 @@
+---
+---
+
 # Running ReSharper in Visual Studio Experimental Instance
 
 > **Warning** This topic relates to ReSharper 8, and has not been updated to ReSharper 9 or the ReSharper Platform.

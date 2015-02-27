@@ -1,3 +1,6 @@
+---
+---
+
 # Scopes
 
 ReSharper's Live Templates can declare the _scope_ in which they are available. That is, instead of allowing all templates to be inserted at any location in any file, a template can be constrained to certain file types, and even to certain locations within those files. For example, a template can be constrained not just to C# files, but to any location where a namespace declaration, type definition, or an expression is valid.
@@ -18,7 +21,7 @@ The `TemplateScopeManager` shell component is the main entry point for working w
 
 The `IScopeProvider` interface declares three methods that are used to create scope points:
 
-```cs
+```csharp
 public interface IScopeProvider
 {
   IEnumerable<ITemplateScopePoint> ProvideScopePoints(TemplateAcceptanceContext context);
@@ -40,7 +43,7 @@ The `ScopeProvider` abstract base class provides a mechanism for creating specif
 
 For example, the CSS scope provider will set up a list of creator functions that simply defer to `ScopeProvider.TryToCreate<T>` which will create the type if the type name matches:
 
-```cs
+```csharp
 public class CssScopeProvider : ScopeProvider
 {
   public CssScopeProvider()
@@ -61,7 +64,7 @@ public class CssScopeProvider : ScopeProvider
 
 The following is an example of an implementation of `IScopeProvider.ProvideScopePoints` for CSS files. It examines the current context, as provided by `TemplateAcceptanceContext` and returns scope points that are valid:
 
-```cs
+```csharp
 public override IEnumerable<ITemplateScopePoint> ProvideScopePoints(TemplateAcceptanceContext context)
 {
   // Ensure we have an IPsiSourceFile, a valid document range, and the file is a CSS file
@@ -127,7 +130,7 @@ The call to `LiveTemplatesManager.GetPrefix` gets the "word" that precedes the c
 
 A "word" is defined as any character preceding the current text caret that is a letter or digit, or is one of a set of allowed characters. The overload shown above does not specify any additional characters, so uses the default of the underscore character `'_'`. Another overload takes an array of allowed chars.
 
-```cs
+```csharp
 public static string GetPrefix(IDocument document, int caretOffset, params char[] allowedChars)
 ```
 
@@ -137,7 +140,7 @@ For example, the `HTMLScopeProvider` class calls `GetPrefix` with an array of `{
 
 A scope point is implemented by deriving from `ITemplateScopePoint`, and is usually implemented by deriving from the `TemplateScopePoint` abstract base class. It is not a component from the Component Model, but just a class created by an `IScopeProvider`. The interface is:
 
-```cs
+```csharp
 public interface ITemplateScopePoint
 {
   bool IsSubsetOf(ITemplateScopePoint other);

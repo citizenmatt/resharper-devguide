@@ -1,3 +1,6 @@
+---
+---
+
 # InspectCode Plugins
 
 This page contains documentation on developing plugins for [InspectCode](http://confluence.jetbrains.com/display/NETCOM/Introducing+InspectCode), part of [ReSharper Command Line Tools](http://confluence.jetbrains.com/display/NETCOM/Introducing+ReSharper+Command+Line+Tools).
@@ -14,7 +17,7 @@ Currently, the only extension point for InspectCode that isn't part of ReSharper
 * Add additional reference to `JetBrains.CommandLine.InspectCode.Unattended.dll` library from CLT distribution.
 * Implement your own logic for `IInspectCodeConsumer`
 
-    ```cs
+    ```csharp
     public class IssueLogger : IInspectCodeConsumer
     {
       void IDisposable.Dispose() { }
@@ -28,7 +31,7 @@ Currently, the only extension point for InspectCode that isn't part of ReSharper
 
 * Implement `IInspectCodeConsumerFactory` factory to return a new instance of your consumer
 
-    ```cs
+    ```csharp
     [SolutionComponent]
     public class IssueLoggerFactory : IInspectCodeConsumerFactory
     {

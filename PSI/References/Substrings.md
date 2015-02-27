@@ -1,10 +1,13 @@
+---
+---
+
 # References within elements - substrings
 
 A reference doesn't need to be applied to the complete range of an element - it doesn't have to be the whole string in a string literal. Multiple references can be applied to different parts of a single element.
 
 For example, a file path reference provider will create multiple references for substrings within the string, one for each file path segment. A reference which wishes to do this should implement the `IReferenceWithinElement<T>` interface, where `T` is the owning PSI tree node.
 
-```cs
+```csharp
 public interface IReferenceWithinElement : IReference
 {
   ITreeNode Token { get; }
@@ -30,7 +33,7 @@ The constructor takes in the two element nodes, and the relative `TreeTextRange`
 
 The core implementation of `GetSymbolFilters` is held in `GetCompletionFilters` which returns an empty list by default. To add functionality, return an array of filters, for example:
 
-```cs
+```csharp
 return new ISymbolFilter[]
 {
   new DeclaredElementTypeFilter(ResolveErrorType.NOT_RESOLVED, CLRDeclaredElementType.ENUM_MEMBER),

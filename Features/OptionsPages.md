@@ -1,3 +1,6 @@
+---
+---
+
 # Options Pages
 
 > **Warning** This topic relates to ReSharper 8, and has not been updated to ReSharper 9 or the ReSharper Platform.
@@ -23,7 +26,7 @@ In addition, you may specify the following optional parameters:
 
 Having specified the attributes, your class will appear as follows:
 
-```cs
+```csharp
 [OptionsPage(PID, "Sample Page", typeof(OptionsPageThemedIcons.SamplePage), ParentId = ToolsPage.PID)]
 public partial class SampleOptionPage : IOptionsPage
 {
@@ -68,7 +71,7 @@ The `OptionsSettingsSmartContext` class that we inject has several `SetBinding()
 
 For example, here is how one would bind a WPF text box for a username to a corresponding setting:
 
-```cs
+```csharp
 settings.SetBinding(lifetime, (GitHubSettings s) => s.Username, usernameBox, TextBox.TextProperty);
 ```
 
@@ -80,7 +83,7 @@ The situation with WinForms is a bit more trickly - there are no dependency prop
 
 Thus, the call to bind a WinForms-based password box to a setting becomes as follows:
 
-```cs
+```csharp
 var property = WinFormsProperty.Create(lifetime, passwordBox, box => box.Text, true);
 settings.SetBinding(lifetime, (GitHubSettings s) => s.Password, property);
 ```

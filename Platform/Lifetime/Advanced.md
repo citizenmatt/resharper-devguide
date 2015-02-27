@@ -1,3 +1,6 @@
+---
+---
+
 # Advanced Lifetime Management
 
 Lifetime instances can be combined in very powerful ways.

@@ -1,6 +1,10 @@
+---
+---
+
 # Type System
 
-<!-- toc -->
+* Table of contents
+{:toc}
 
 Any kind of manipulation of object-oriented structures necessarily involve working with _types_ such as `int`, `string` or, say, `MyType<U,V>`. Predictably, ReSharper has a number of data structures that allow plugin writers to identify and introspect types, whether these types are available as code or not.
 

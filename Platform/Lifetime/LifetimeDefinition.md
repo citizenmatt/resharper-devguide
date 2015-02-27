@@ -1,3 +1,6 @@
+---
+---
+
 # Lifetime Management
 
 A lifetime is made up of two parts, the `Lifetime` instance, which is passed around and used to register callbacks, and a `LifetimeDefinition` which is used to manage the lifetime.
@@ -6,7 +9,7 @@ A lifetime is made up of two parts, the `Lifetime` instance, which is passed aro
 
 You cannot terminate a `Lifetime` instance; unless you create it, you do not own it, therefore you shouldn't terminate it. Instead, when you create a `Lifetime`, you receive an instance of `LifetimeDefinition`, and this class allows you to terminate the `Lifetime`. Here's what it looks like:
 
-```cs
+```csharp
 public class LifetimeDefinition
 {
   public void Terminate();
@@ -33,7 +36,7 @@ If you only need a `Lifetime` for a short period of time, the `Lifetimes.Using(A
 
 If you want a longer-lived `Lifetime`, you can call `Lifetimes.Define`:
 
-```cs
+```csharp
 Lifetimes.Define(Lifetime lifetime, string id, Action<LifetimeDefinition, Lifetime> action, ILogger logger);
 ```
 

@@ -1,3 +1,6 @@
+---
+---
+
 # Project Setup
 
 Plugins for the ReSharper Platform are simply .net assemblies. In order to create a plugin project, you need to:

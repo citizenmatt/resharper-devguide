@@ -1,3 +1,6 @@
+---
+---
+
 # Themed Icons
 
 ReSharper supports theming icons on two axes - application colour, and source code symbol style. In other words, icons can be themed either based on the application colour, or on the style for source code symbols.
@@ -26,7 +29,7 @@ The current theme is represented by the `IconTheme` class, and can be retrieved 
 
 A theme aspect represents the two axes described above - application colour and symbol style. The application colour aspect values are represented by static values on the `GenericIconThemeAspect` class:
 
-```cs
+```csharp
 public static class GenericIconThemeAspect
 {
   public static readonly IconThemeAspect Color = new IconThemeAspect(...);
@@ -37,7 +40,7 @@ public static class GenericIconThemeAspect
 
 The `PsiSymbolIconThemeAspect` class holds the values for the source symbol style:
 
-```cs
+```csharp
 public static class PsiSymbolIconThemeAspect
 {
   public static readonly IconThemeAspect SymbolsIdea = new IconThemeAspect(...);

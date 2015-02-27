@@ -1,3 +1,6 @@
+---
+---
+
 # Strongly Typed Navigation
 
 While it's possible to navigate a syntax tree using just the parent, sibling and child nodes, it's a rather low level approach to the problem. If your current node is a class declaration, it's a lot of leg work to get at all of the method declarations. Similarly, from a method declaration, it's not convenient to walk the `Parent` nodes looking for the class declaration.
@@ -8,7 +11,7 @@ Fortunately, ReSharper provides strongly typed navigation to make this a lot mor
 
 Navigating down to child nodes is made very easy by derived interfaces of `ITreeNode`. All nodes in the tree implement `ITreeNode`, and also derive from it to provide a strongly typed API. For example, C# method declarations implement `IMethodDeclaration`, which itself derives from `ITreeNode`. If we take a look at some of the members:
 
-```cs
+```csharp
 public interface IMethodDeclaration : ITreeNode
 {
   IAttributeSectionList AttributeSectionList { get; }
@@ -26,7 +29,7 @@ Each of these properties is a strongly typed accessor to get to the `ITreeNode` 
 
 Similarly, collections can be represented. Let's take a look at a simplified class declaration:
 
-```cs
+```csharp
 public interface IClassDeclaration : ITreeNode
 {
   TreeNodeCollection<IMethodDeclaration> MethodDeclarations {get;}
@@ -49,7 +52,7 @@ ReSharper also provides a strongly typed means of navigating *up* the tree, whic
 
 For example, the `IXmlTag` node exposes a `Header` property of type `IXmlTagHeader`, providing us strongly typed navigation *down* the tree (from a node representing a complete xml tag to the node representing the opening part of the tag). The `XmlTagNavigator` static class gives us the opposite - strongly typed navigation *up* to an `IXmlTag` from various child nodes.
 
-```cs
+```csharp
 public static class XmlTagNavigator
 {
   public static IXmlTag GetByTag(IXmlTag tag) { /* … */ }
@@ -67,7 +70,7 @@ The classes follow a simple naming pattern. The navigator class is named after t
 
 It should also be pointed out that you can use the navigator classes in combination. For example, to get to a class declaration from an `if` statement in a C# file:
 
-```cs
+```csharp
 public IClassDeclaration GetByIfStatement(IIfStatement ifStatement)
 {
   var methodBody = BlockNavigator.GetByStatement(ifStatement);

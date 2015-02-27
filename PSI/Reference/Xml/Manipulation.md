@@ -1,8 +1,11 @@
+---
+---
+
 # Manipulating the Tree
 
 The XML PSI tree doesn't provide many strongly typed methods for manipulating the tree. The [`IXmlTag`](TreeNodes.md#ixmltag) and [`IXmlTagContainer`](TreeNodes.md#ixmltagcontainer) nodes are the only ones that provide methods.
 
-```cs
+```csharp
 public inteface IXmlTag
 {
   // ...snip...
@@ -28,7 +31,7 @@ Both interfaces allow adding an attribute or a tag, specifying an `anchor` tree 
 
 While the tree nodes don't provide any more methods for manipulating the tree, the [Util classes](Utils.md) do. Specifically, [`XmlAttributeUtil`](Utils.md#xmlattributeutil) and [`XmlTagUtil`](Utils.md#xmltagutil).
 
-```cs
+```csharp
 public static class XmlAttributeUtil
 {
   // ...snip...
@@ -77,7 +80,7 @@ This can be quite complex, depending on what exactly needs to be replaced. The `
 
 For example, replacing the inner text of a tag is complicated by the text being represented by both text token nodes and whitespace token nodes. Replacing a single word is therefore straightforward:
 
-```cs
+```csharp
 public void ReplaceTextNode(IXmlTag tag, IXmlFloatingTextTokenNode oldToken, string text)
 {
   // Will only take the write lock if tag is part of a "real" tree
@@ -97,7 +100,7 @@ public void ReplaceTextNode(IXmlTag tag, IXmlFloatingTextTokenNode oldToken, str
 
 However, replacing content that spans whitespace nodes is more involved. A better approach here can be to create a new tag with the entire expected text content, and replace the child nodes of the original tag with the new tag's children. Alternatively, replace the whole tag with the newly created one (ensuring attributes are correctly copied across).
 
-```cs
+```csharp
 public void ReplaceTextContents(IXmlTag tag, string text)
 {
   using(WriteLockCookie.Create(tag.IsPhysical()))

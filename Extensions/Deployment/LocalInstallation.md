@@ -1,3 +1,6 @@
+---
+---
+
 # Local Installation
 
 In order to manually test an extension, whether it's a [plugin](../../Intro/CompiledExtensions.md) or a [declarative extension](../../Intro/DeclarativeExtensions.md), it must first be installed into the ReSharper Platform. Once installed, existing files can be updated by copying a new version in place. This is a similar pattern to Visual Studio's VSIX development model.

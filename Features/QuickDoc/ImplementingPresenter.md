@@ -1,8 +1,11 @@
+---
+---
+
 # Implementing IQuickDocPresenter
 
 Once a provider has identified an element that it can generate documentation for, it creates an instance of `IQuickDocPresenter`, which is responsible for generating the documentation. It has the following methods:
 
-```cs
+```csharp
 public interface IQuickDocPresenter
 {
   string GetHtml(PsiLanguageType presentationLanguage);
