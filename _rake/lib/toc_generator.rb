@@ -81,7 +81,7 @@ module UpsourceDocs
           basename = href.chomp(File.extname(href)).sub(/^\//,'')
           href = basename + '.html'
           item[:id] = basename
-          item[:title] = a.children[0].value.strip
+          item[:title] = get_text(a.children)
           item[:url] = href
           is_external = href.start_with?('http://', 'https://', 'ftp://', '//')
           item[:is_external] = true if is_external
@@ -93,6 +93,19 @@ module UpsourceDocs
       end
 
       return item
+    end
+
+    def self.get_text(nodes)
+      nodes.reduce('') { |t, c| t + format(c.value) }
+    end
+
+    def self.format(item)
+      case item
+        when Symbol
+          Kramdown::Utils::Entities.entity(item.to_s).char
+        when String
+          item
+      end
     end
 
     def self.extract_header(header_node)
