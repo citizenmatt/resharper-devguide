@@ -78,8 +78,9 @@ module UpsourceDocs
         when :a
           a = p.children[0]
           href = a.attr['href']
-          href = href.chomp(File.extname(href)) + '.html'
-          item[:id] = File.basename(href, File.extname(href))
+          basename = href.chomp(File.extname(href)).sub(/^\//,'')
+          href = basename + '.html'
+          item[:id] = basename
           item[:title] = a.children[0].value.strip
           item[:url] = href
           is_external = href.start_with?('http://', 'https://', 'ftp://', '//')
