@@ -11,7 +11,9 @@ module Jekyll
         end
 
         def convert(content)
-          Kramdown::Document.new(content, Utils.symbolize_hash_keys(@config["kramdown"])).to_upsrc
+          options = Utils.symbolize_hash_keys(@config['kramdown'])
+          options[:baseurl] = @config['baseurl']
+          Kramdown::Document.new(content, options).to_upsrc
         end
       end
     end
@@ -104,6 +106,7 @@ module Kramdown
           res = obfuscate(res) if res == mail_addr
         end
 
+        href = @options[:baseurl] + href[1, href.length - 1] if href.start_with?('/') and !href.start_with?('//')
         uri = URI(href)
         uri.path = uri.path.chomp(File.extname(uri.path)) + '.html' if File.extname(uri.path) == '.md' and !is_external
         attr['href'] = uri.to_s
