@@ -1,7 +1,7 @@
 CONFIG = {
   :source_dir => __dir__,
   :tmp_dir => "#{__dir__}/_tmp",
-  :build_destination => "_site",
+  :build_destination => "_site/devguide-test/",
   :preview_host => "0.0.0.0",
   :preview_port => 4000,
   :default_env => 'dev'

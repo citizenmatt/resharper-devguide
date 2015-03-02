@@ -14,7 +14,7 @@ layouts: _jekyll/_layouts
 # This can't be '', or folders don't work. But fortunately, the template sets it to 'site.baseurl'
 # and not 'baseurl', so we can cheat. Ideally, the 'baseurl' value wouldn't be used at all,
 # and 'site.baseurl' would always be used, but assumed to have a trailing slash
-baseurl: /
+baseurl: /devguide-test/
 
 markdown: CustomKramdownParser
 
