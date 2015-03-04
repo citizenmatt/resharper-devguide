@@ -113,6 +113,31 @@ module Kramdown
 
         format_as_span_html(el.type, attr, "<span>#{res}</span>")
       end
+
+      def convert_blockquote(el, indent)
+
+        if el.children[0].type == :p and el.children[0].children[0].type == :strong
+          p = el.children[0]
+          type = inner_text(p.children[0], []).downcase
+          type = type + ' ' + el.attr['class'] unless el.attr['class'].nil?
+          el.attr['class'] = type
+
+          p.children.slice!(0)
+        end
+
+        format_as_indented_block_html('aside', el.attr, inner(el, indent), indent)
+      end
+
+      def inner_text(el, stack)
+        result = ''
+        stack.push el
+        result << el.value unless el.value.nil?
+        el.children.each do |inner_el|
+          result << inner_text(inner_el, stack)
+        end
+        stack.pop
+        result
+      end
     end
 
     module SyntaxHighlighter
