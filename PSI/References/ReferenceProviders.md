@@ -24,7 +24,7 @@ For example, references are used with ASP.NET MVC's view and action names. Ctrl+
 
 ![Navigating to references from an MVC View method](mvc_ctrl_click.png)
 
->**Note** References are evaluated on-demand. They do not maintain a direct relationship with their target, but need to be resolved before they can be used. Resolving can fail, in which case the reference is deemed to be invalid, and the attached element marked as an error.
+> **Note** References are evaluated on-demand. They do not maintain a direct relationship with their target, but need to be resolved before they can be used. Resolving can fail, in which case the reference is deemed to be invalid, and the attached element marked as an error.
 
 A reference provider starts life as an instance of `IReferenceProviderFactory`, which in turn creates an instance of `IReferenceFactory` for a given file. The `IReferenceFactory` then creates one or more instances of `IReference` for any given node in the PSI tree.
 

@@ -21,7 +21,7 @@ public interface IMethodDeclaration : ITreeNode
 }
 ```
 
-> **Note** This example over-simplifies the real implementation of `IMethodDeclaration`. The real definition applies the Interface Segregation Principle and splits out more interfaces that can be reused, such as `ICSharpParametersOwnerDeclaration` and `ICSharpModifiersOwnerDeclaration` to allow other nodes that can also have parameters, or modifiers, or attributes, etc., to share interfaces. The intent here is to discuss the strongly typed accessors, rather than document `IMethodDeclaration`.
+> **NOTE** This example over-simplifies the real implementation of `IMethodDeclaration`. The real definition applies the Interface Segregation Principle and splits out more interfaces that can be reused, such as `ICSharpParametersOwnerDeclaration` and `ICSharpModifiersOwnerDeclaration` to allow other nodes that can also have parameters, or modifiers, or attributes, etc., to share interfaces. The intent here is to discuss the strongly typed accessors, rather than document `IMethodDeclaration`.
 
 Each of these properties is a strongly typed accessor to get to the `ITreeNode` that represents the attributes on the method, or the node that represents the method's name. Internally, the nodes are found by walking down the tree, looking for nodes of a particular type. They are then downcast to the strongly typed, `ITreeNode` derived interfaces.
 
@@ -44,7 +44,7 @@ The `MethodDeclarations` property creates a new instance of `TreeNodeCollection<
 
 The `MethodDeclarationsEnumerable` property, however, simply creates an instance of `TreeNodeEnumerable<T>` (again, each time it's accessed), but the nodes are not collected until the enumerable is enumerated - it is lazily evaluated, and does not store the whole list. This makes it more efficient than `TreeNodeCollection<T>`.
 
-> **Success** You should favour the enumerable version of a property unless you require the extra features that `IList<T>` gives you.
+> **TIP** You should favour the enumerable version of a property unless you require the extra features that `IList<T>` gives you.
 
 ## Navigating up the tree
 
@@ -64,7 +64,7 @@ public static class XmlTagNavigator
 
 The classes follow a simple naming pattern. The navigator class is named after the node you're trying to navigate *to*, and the name ends in the word `Navigator`, e.g. `XmlTagNavigator` is trying to navigate to an instance of `IXmlTag`. The methods all being with `GetBy` and finish with the type of the node that should be passed in. So, `XmlTagNavigator.GetByAttribute` is trying to navigate to an `IXmlTag`, from an `IXmlAttribute`.
 
-> **Warning** Navigating up the tree is not as simple as casting `Parent` to the appropriate type. The navigator methods have specific knowledge of parent/child relationships, and can walk several nodes up the hierarchy to find the appropriate node. For example, C#'s `ClassDeclarationNavigator` can navigate to the class declaration node from an `IAttribute` node, skipping the attribute list, attribute section and section list nodes before reaching the class declaration node.
+> **WARNING** Navigating up the tree is not as simple as casting `Parent` to the appropriate type. The navigator methods have specific knowledge of parent/child relationships, and can walk several nodes up the hierarchy to find the appropriate node. For example, C#'s `ClassDeclarationNavigator` can navigate to the class declaration node from an `IAttribute` node, skipping the attribute list, attribute section and section list nodes before reaching the class declaration node.
 >
 > Since ReSharper knows these relationships, it is recommended that you use navigator classes where possible, instead of walking the `Parent` properties manually.
 

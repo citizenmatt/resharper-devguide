@@ -26,7 +26,7 @@ When terminating, the callbacks registered to the `Lifetime` are called in rever
 
 You can use the `Lifetimes` class to create your own `Lifetime` instances.
 
-> **Note** You should normally let the Component Model [create a `Lifetime` for your component](ComponentModel.md).
+> **NOTE** You should normally let the Component Model [create a `Lifetime` for your component](ComponentModel.md).
 
 ### Short lived Lifetimes
 
@@ -42,7 +42,7 @@ Lifetimes.Define(Lifetime lifetime, string id, Action<LifetimeDefinition, Lifeti
 
 This method takes in a `Lifetime` to act as a parent; the new `Lifetime` is a "nested" lifetime. Terminating the parent `Lifetime` will also terminate this new child `Lifetime`. Of course, if the child terminates first, it removes itself from the parent's cleanup.
 
-> **Note** If you don't have a parent `Lifetime` available, you can use `EternalLifetime.Instance`. Generally speaking, `EternalLifetime` should be avoided, as it is never terminated. Items scheduled against `EternalLifetime` will not run, and will not get garbage collected, effectively resulting in a memory leak. The preferred use case for `EternalLifetime` is to act as a parent for another `Lifetime`.
+> **NOTE** If you don't have a parent `Lifetime` available, you can use `EternalLifetime.Instance`. Generally speaking, `EternalLifetime` should be avoided, as it is never terminated. Items scheduled against `EternalLifetime` will not run, and will not get garbage collected, effectively resulting in a memory leak. The preferred use case for `EternalLifetime` is to act as a parent for another `Lifetime`.
 
 The `Define` method has a number of optional parameters, firstly an id, which is only used for diagnostic purposes. Secondly, an action that is called as soon as the `LifetimeDefinition` has been created. And finally, an optional instance of `ILogger`. If no logger is passed in, the default logger instance from `Logger.Interface` is used (see the Logging section for more details on logging).
 

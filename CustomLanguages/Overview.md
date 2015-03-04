@@ -12,7 +12,7 @@ In this part of the guide we'll look at developing ReSharper support for a new l
 
 ReSharper supports a wide variety of language and also supports a mixture of languages (e.g., `.cshtml` files are a mixture of C# and HTML). Plugin writers can use existing infrastructure in order to support new languages within ReSharper. A language implementation can be a plugin or part of a plugin, and in most cases no special action is required for it to be picked up and recognized by ReSharper.
 
-> **Note** While new language support may be provided in any .NET-compatible programming language, the provided parsing/lexing tools support only the C# programming language.
+> **NOTE** While new language support may be provided in any .NET-compatible programming language, the provided parsing/lexing tools support only the C# programming language.
 
 ## Tools
 
@@ -180,7 +180,7 @@ We are now getting in the thick of language development, this being the last sto
     }
     ```
 
-> **Note** In the above code, `LanguageService()` is an extension method that resides in the `PsiLanguageTypeExtensions` class.
+> **NOTE** In the above code, `LanguageService()` is an extension method that resides in the `PsiLanguageTypeExtensions` class.
 
 * The `GetPreprocessorDefines()` method is used to return a set of `PreProcessingDirective` definitions. If your language doesn’t have preprocessing directives, in which case you can simply return `EmptyArray<PreProcessingDirective>.Instance`.
 * The `GetPsiProperties()` method is used to return a new instance of the PSI properties type for this file as follows:
@@ -231,7 +231,7 @@ We are finally ready to create is a language service -- an entity that finally l
 * It must have a public constructor taking _at least_ the language definition (i.e., the `MyLanguage` type) and an `IConstantValueService`.
 * It must call the base constructor with the above parameters.
 
-> **Note** After implementing the above, check that your breakpoints actually fire when opening the file with your chosen extension. An empty implementation of the above should be sufficient for ReSharper to identify the feature-related language service.
+> **NOTE** After implementing the above, check that your breakpoints actually fire when opening the file with your chosen extension. An empty implementation of the above should be sufficient for ReSharper to identify the feature-related language service.
 
 The language service is where all the activity occurs. In particular, the language services exposes both the lexer and the parser, as well as a number of complementary services that may or may not be required for the particular language.
 

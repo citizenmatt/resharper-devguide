@@ -3,7 +3,7 @@
 
 # Bulk Actions
 
-> **Warning** This topic relates to ReSharper 8, and has not been updated to ReSharper 9 or the ReSharper Platform.
+> **WARNING** This topic relates to ReSharper 8, and has not been updated to ReSharper 9 or the ReSharper Platform.
 
 A Bulk Action is a Quick-Fix or a Context Action that can be applied to an element in the syntax tree, a single file, or all files in a folder, project or solution. This [fix in scope](http://www.jetbrains.com/resharper/webhelp/Code_Analysis__Fix_in_Scope.html) mechanism is displayed as a menu item on the `Alt+Enter` menu that can be selected to affect the single item, or expanded to show the per-file, folder, project or solution scope:
 

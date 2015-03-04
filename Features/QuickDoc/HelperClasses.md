@@ -72,7 +72,7 @@ Generally, the root node is the `member` node, and is used to generate a name he
 
 All child nodes of the `member` node are converted into sections in the generated HTML. Each section has a title, such as "Remarks" or "See Also", and the content of each XML node is converted and displayed in the section.
 
->**Note** the root node of the XML will only be processed if an `IDeclaredElement` is passed in, otherwise the child nodes are immediately processed instead. While it is assumed that the root node is the `member` node, this is not a requirement.
+> **NOTE** the root node of the XML will only be processed if an `IDeclaredElement` is passed in, otherwise the child nodes are immediately processed instead. While it is assumed that the root node is the `member` node, this is not a requirement.
 
 The following elements are recognised:
 

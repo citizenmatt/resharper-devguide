@@ -43,7 +43,7 @@ You don't need to write any code in your action handler's methods, as all featur
 
 Additionally, your provider should be decorated with the `ContextNavigationProvider` attribute.
 
-> **Info** If you want your feature to appear only in 'Navigate From Here' menu, you don't even have to write an action - just implement `ContextNavigationProvider` that implements `INavigateFromHereProvider`.
+> **NOTE** If you want your feature to appear only in 'Navigate From Here' menu, you don't even have to write an action - just implement `ContextNavigationProvider` that implements `INavigateFromHereProvider`.
 
 If your navigation is not complicated, that's all you need to know about the context navigation framework.
 

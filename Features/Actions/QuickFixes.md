@@ -3,7 +3,7 @@
 
 # Quick-Fixes and Context Actions
 
-> **Warning** This topic relates to ReSharper 8, and has not been updated to ReSharper 9 or the ReSharper Platform.
+> **WARNING** This topic relates to ReSharper 8, and has not been updated to ReSharper 9 or the ReSharper Platform.
 
 One of the ways that ReSharper offers to correct or modify your code is by using a pop-up menu that shows up on the left-hand side of the screen:
 
@@ -52,7 +52,7 @@ A bulb menu is represented by the `BulbMenu` class. The contents of this class c
 
 A singular call such as `ArrangeContextAction()` has a corresponding method `ArrangeContextActions()` - note the `s` at the end. This basically takes _several_ bulb items and puts them at the top level.
 
-> **Note** the bulb menu doesn’t just support adding ordinary QF and CA items but also other items, but also more complicated items such as refactoring quick-fixes. The fundamental difference between these is the icon that is displayed next to the item.
+> **NOTE** the bulb menu doesn’t just support adding ordinary QF and CA items but also other items, but also more complicated items such as refactoring quick-fixes. The fundamental difference between these is the icon that is displayed next to the item.
 
 Now let’s talk about the hierarchical aspects of menus. Essentially, a bulb menu keeps information about its structure in a property called `Groups` which is an enumeration of `BulbGroup` objects. Rather than creating groups, it is recommended that you use the `BulbMenu.GetOrCreateGroup()` method to avoid creating duplicate groups. This method takes an `Anchor` which relates to the location where the group is placed - take a look at the static members of `AnchorsForBulbMenuGroups` for some well-known anchors.
 

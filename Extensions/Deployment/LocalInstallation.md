@@ -19,7 +19,7 @@ This first step is optional, but strongly recommended for working with plugins f
 
 Visual Studio's ["Experimental Instance"](http://msdn.microsoft.com/en-us/library/bb166560.aspx) feature is intended for developing and debugging Visual Studio extensions, and maintains a separate copy of the configuration needed to run Visual Studio. Each experimental instance can have an entirely different configuration, from theme and window layout to the extensions that are loaded.
 
->**Note** "Experimental instances" were previously known as "custom hives"
+> **NOTE** "Experimental instances" were previously known as "custom hives"
 
 By default, the ReSharper Platform and all Product extensions (dotTrace, dotPeek, etc) are installed as a per-user extension for the main instance of Visual Studio. It is not visible in existing instances. However, it can be installed into an experimental instance to allow for a separate version of ReSharper (complete with separate versions of extensions) than what is installed in the main instance.
 

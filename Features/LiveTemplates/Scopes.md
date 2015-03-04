@@ -17,7 +17,7 @@ In this way, templates can be constrained to be more targeted and useful, even a
 
 The `TemplateScopeManager` shell component is the main entry point for working with scope points, and it maintains a list of `IScopeProvider` shell components. As such, it can be extended by a class implementing `IScopeProvider` and decorated with the `[ShellComponent]` attribute.
 
-> **Note** The list of `IScopeProvider` components maintained by the `TemplateScopeManager` is injected as an `IEnumerable<IScopeProvider>` rather than an `IViewable<IScopeProvider>`. Therefore, the list does not update when new components are made available. Live loading of plugins is not supported; when a new plugin is installed, ReSharper must be restarted before the new scope provider is used.
+> **NOTE** The list of `IScopeProvider` components maintained by the `TemplateScopeManager` is injected as an `IEnumerable<IScopeProvider>` rather than an `IViewable<IScopeProvider>`. Therefore, the list does not update when new components are made available. Live loading of plugins is not supported; when a new plugin is installed, ReSharper must be restarted before the new scope provider is used.
 
 The `IScopeProvider` interface declares three methods that are used to create scope points:
 

@@ -25,7 +25,7 @@ The constructor for `ElementRange` takes in an instance of `T` and the `TreeText
 
 Instead of implementing the `IReferenceWithinElement<T>` interface directly, you can derive from `ReferenceWithinElementBase<TOwner, TToken>`, which provides most of the implementation for you. This class derives from `TreeReferenceBase` but implements things a little differently.
 
->**Note** In the type signature for `ReferenceWithinElementBase<TOwner, TToken>`, `TOwner` is the owner of the reference, and `TToken` is the node within the owner's sub-tree that will be used for the reference region. For example, `TOwner` can be `ICSharpLiteralExpression` and `TToken` would be `ITokenNode`, and set to a value of `ICSharpLiteralExpression.Literal`.
+> **NOTE** In the type signature for `ReferenceWithinElementBase<TOwner, TToken>`, `TOwner` is the owner of the reference, and `TToken` is the node within the owner's sub-tree that will be used for the reference region. For example, `TOwner` can be `ICSharpLiteralExpression` and `TToken` would be `ITokenNode`, and set to a value of `ICSharpLiteralExpression.Literal`.
 
 The constructor takes in the two element nodes, and the relative `TreeTextRange` of the range within the `TToken` tree node parameter. The name of the reference, as returned by `GetText` is the substring of the `TToken` node defined by this range. The range of the reference comes from the relative tree range of the substring.
 
@@ -47,5 +47,5 @@ The only other method that requires implementation (unless you wish to customise
 
 However, there is additional housekeeping required when the change is happening in a file that can contain multiple PSI trees (e.g. HTML files can contain HTML, JS and CSS trees). In this case you should use either the `HtmlReferenceWithTokenUtil.SetText` or `JavaScriptReferenceWithTokenUtil.SetText` extension methods to affect the change, as they propogate the change to the other PSI trees. Both implementations are the same, and it would be a reasonable choice to always call these methods instead of `ReferenceWithinElementUtil` directly.
 
->**Info** The change is propogated to the other PSI trees by virtue of adding a "cookie" to the current PSI transaction. The `CreateCustomCookie` extension method is used to attach an object to the transaction's list of "cookie" objects. When making the change, the code asks the PSI transaction if the cookie is set, and if so, propogates the changes to the other PSI files
+> **NOTE** The change is propogated to the other PSI trees by virtue of adding a "cookie" to the current PSI transaction. The `CreateCustomCookie` extension method is used to attach an object to the transaction's list of "cookie" objects. When making the change, the code asks the PSI transaction if the cookie is set, and if so, propogates the changes to the other PSI files
 

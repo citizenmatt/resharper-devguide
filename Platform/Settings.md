@@ -30,7 +30,7 @@ As you can see, the above class is decorated with the `SettingsKey` attribute. T
 
 Following the `SettingsKey` attribute, each property in the class is decorated with the `SettingsEntry` attribute. This attribute takes two parameters - the first being the default value for the property, the second the property's textual description.
 
-> **Note** The default value specified here is perhaps mis-named. It's not actually a default value, but a value to use if the settings infrastructure is unavailable. If client code can't get hold of an instance of `ISettingsStore` to retrieve the value, it can use the default value in the attributes. To specify default values, your plugin should implement `IHaveDefaultSettingsStream`
+> **NOTE** The default value specified here is perhaps mis-named. It's not actually a default value, but a value to use if the settings infrastructure is unavailable. If client code can't get hold of an instance of `ISettingsStore` to retrieve the value, it can use the default value in the attributes. To specify default values, your plugin should implement `IHaveDefaultSettingsStream`
 
 ## Reading and Writing Settings
 

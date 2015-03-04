@@ -100,7 +100,7 @@ public class MyAssemblyAnnotationsTest : ExternalAnnotationsTestBase2
 
 If you need more control over the references you're adding, you can override the `BaseTestWithSingleProject.GetReferencedAssemblies` method.
 
-> **Note** Remember that external annotations can target multiple versions of an assembly by specifying the version in the assembly `name` attribute in the XML file. To test multiple versions, simply create multiple test classes, each referencing a different version of the target assembly. If the multiple versions share test cases, they can implemented in a base class and shared via inheritance.
+> **NOTE** Remember that external annotations can target multiple versions of an assembly by specifying the version in the assembly `name` attribute in the XML file. To test multiple versions, simply create multiple test classes, each referencing a different version of the target assembly. If the multiple versions share test cases, they can implemented in a base class and shared via inheritance.
 >
 > If using base classes, the `TestReferencesAttribute.Inherits` property declares whether `TestReferences` attributes on the base class are used or not. By default, they aren't - the `TestReferences` attribute of declared classes override the base class.
 
@@ -108,7 +108,7 @@ If you need more control over the references you're adding, you can override the
 
 The following code snippet defines a class called `ExternalAnnotationsTestBase2` which provides a helper method to convert an XML Doc ID to an `IDeclaredElement`. It then gets an instance of `CodeAnnotationsCache` and both are passed to the assert method, which can use the cache to ask for the annotations applied to the given code element.
 
->**Note** ReSharper already defines a class called `ExternalAnnotationsTestBase` that provides similar functionality used internally for testing external annotations. However, it is unsuitable to use as a base class for plugin tests, as it defines tests for the standard BCL annotations, which would also run for your plugin tests.
+> **NOTE** ReSharper already defines a class called `ExternalAnnotationsTestBase` that provides similar functionality used internally for testing external annotations. However, it is unsuitable to use as a base class for plugin tests, as it defines tests for the standard BCL annotations, which would also run for your plugin tests.
 
 The base class looks like this:
 
@@ -179,11 +179,11 @@ public abstract class ExternalAnnotationsTestBase2 : BaseTestWithSingleProject
 
 Other assert methods can be added similar to `AssertParameterAssertCondition` that also call into `CodeAnnotationsCache` in order to assert annotations are applied.
 
->**Info** The prefix in the name of the XML Doc ID identifies the type of the code element - `T` for type, `M` for method, `P` for property and so on. See the [MSDN documentation on XML Doc IDs](http://msdn.microsoft.com/en-us/library/fsbx0t7x.aspx) for more details.
+> **NOTE** The prefix in the name of the XML Doc ID identifies the type of the code element - `T` for type, `M` for method, `P` for property and so on. See the [MSDN documentation on XML Doc IDs](http://msdn.microsoft.com/en-us/library/fsbx0t7x.aspx) for more details.
 
 <!-- Comment to separate the notes -->
 
->**Warning** This approach requires that ReSharper can resolve the types and constructors of the `JetBrains.Annotations` attributes referenced in the external annotations file. If ReSharper cannot resolve these types, the annotations are not applied, and tests can fail.
+> **WARNING** This approach requires that ReSharper can resolve the types and constructors of the `JetBrains.Annotations` attributes referenced in the external annotations file. If ReSharper cannot resolve these types, the annotations are not applied, and tests can fail.
 >
 > ReSharper can automatically resolve types against the `JetBrains.Annotations.dll` assembly in the product install directory (by using a custom `IPsiModule`). In normal usage, this effectively means all projects can resolve references to the annotation attributes.
 >

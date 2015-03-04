@@ -3,7 +3,7 @@
 
 # Code Cleanup
 
-> **Warning** This topic relates to ReSharper 8, and has not been updated to ReSharper 9 or the ReSharper Platform.
+> **WARNING** This topic relates to ReSharper 8, and has not been updated to ReSharper 9 or the ReSharper Platform.
 
 If you want to fix an error at a particular location in code, you can create a Quick-Fix. But what if you need to fix that same error in all locations in a file, the whole project, or even the whole solution? This is there the concept of _Code Cleanup_ comes into play.
 

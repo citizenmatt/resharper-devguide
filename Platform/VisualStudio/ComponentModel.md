@@ -3,7 +3,7 @@
 
 # Component Model and Visual Studio interfaces
 
-> **Warning** This topic relates to ReSharper 8, and has not been updated to ReSharper 9 or the ReSharper Platform.
+> **WARNING** This topic relates to ReSharper 8, and has not been updated to ReSharper 9 or the ReSharper Platform.
 
 The Component Model also allows access to interfaces implemented by Visual Studio. However, it is recommended that you try and avoid the use of Visual Studio interfaces, as this usually ties your plugin to a particular version of Visual Studio, and requires the plugin to run in the Visual Studio hosted version of ReSharper. Your plugin won't run in the Command Line Tools version of ReSharper. You are strongly encouraged to use ReSharper interfaces and services whenever possible.
 

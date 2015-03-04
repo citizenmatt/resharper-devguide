@@ -5,7 +5,7 @@
 
 The test framework supports running the same test multiple times with different combinations of settings. The settings can be specified in a text file, via an attribute, or via a parameter embedded in the test input file. The base class for the test must support this explicitly, it is not available to all tests by default.
 
-> **Note** The combinatorial testing described here is in regard to running a piece of test code multiple times within the same test method run, with different settings applied for each run. It does not cause multiple NUnit test methods to run, and the standard NUnit `[TestCase]` and `[TestCaseSource]` attributes continue to work very nicely for row based, data driven testing.
+> **NOTE** The combinatorial testing described here is in regard to running a piece of test code multiple times within the same test method run, with different settings applied for each run. It does not cause multiple NUnit test methods to run, and the standard NUnit `[TestCase]` and `[TestCaseSource]` attributes continue to work very nicely for row based, data driven testing.
 
 When running the test, the test base class needs to call the `Iterate` method on an instance of `TestOptionsIterator`:
 

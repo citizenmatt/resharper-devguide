@@ -8,7 +8,7 @@
 
 ReSharper has a very composable architecture, which allows for a loosely coupled, easily extensible design. Functionality is implemented in terms of components that advertise themselves to the Component Model, which in turn is responsible for lifetime management, as well as wiring up the inter-dependencies of the components. The Component Model will look for classes marked with specific attributes, which declare the lifetime scope of the component. Dependencies are declared as constructor arguments. At the appropriate time, the Component Model will create new instances of the components, ensuring all dependencies are created first, and passed into the constructor.
 
-> **Note** If you are familiar with the concept of [Inversion of Control](http://en.wikipedia.org/wiki/Inversion_of_control) and [Dependency Injection](http://en.wikipedia.org/wiki/Dependency_injection), ReSharper's Component Model follows these patterns, and implements an IoC Container to automatically create and wire up dependendencies
+> **NOTE** If you are familiar with the concept of [Inversion of Control](http://en.wikipedia.org/wiki/Inversion_of_control) and [Dependency Injection](http://en.wikipedia.org/wiki/Dependency_injection), ReSharper's Component Model follows these patterns, and implements an IoC Container to automatically create and wire up dependendencies
 
 This loosely coupled design allows for easily extending ReSharper - new components can easily be advertised to the Component Model, and services are available for consumption by declaring constructor arguments. It is not possible to integrate with ReSharper without using and understanding the Component Model.
 

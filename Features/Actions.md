@@ -3,7 +3,7 @@
 
 # Actions and Menu Items
 
-> **Warning** This topic relates to ReSharper 8, and has not been updated to ReSharper 9 or the ReSharper Platform.
+> **WARNING** This topic relates to ReSharper 8, and has not been updated to ReSharper 9 or the ReSharper Platform.
 
 While the bulk of ReSharper is concerned with presenting its own types of UI (popups, dialog windows, etc.), certain features can be implemented using traditional menu items that would be familiar to anyone who has done Visual Studio plugin development. A menu item subsequently triggers an _action_, i.e. a unit of work associated with this menu item.
 
@@ -36,7 +36,7 @@ Let's take a look at these steps in turn.
 [assembly: ActionsXml("JetBrains.ReSharper.PowerToys.MenuItem.Actions.xml")]
 ```
 
-> **Note**: This attribute is no longer required in ReSharper 8. ReSharper will instead look for all embedded resources in an assembly to see if it matches the name `Actions.xml`
+> **NOTE**: This attribute is no longer required in ReSharper 8. ReSharper will instead look for all embedded resources in an assembly to see if it matches the name `Actions.xml`
 
 The XML file itself is fairly simple. At the root level, it uses the `actions` element. Within it, there are several different types of content.
 

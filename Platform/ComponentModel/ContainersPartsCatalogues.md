@@ -3,7 +3,7 @@
 
 # Containers, Parts and Catalogues
 
-> **INFO** This is an advanced, deep dive into the implementation of the Component Model. It is not necessary to understand this in order to use the Component Model, or solution or shell components.
+> **NOTE** This is an advanced, deep dive into the implementation of the Component Model. It is not necessary to understand this in order to use the Component Model, or solution or shell components.
 
 * Table of contents
 {:toc}
