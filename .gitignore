@@ -12,3 +12,6 @@ HelpTOC.json
 _includes/
 _site/
 app/
+
+.bundle/
+_vendor/
