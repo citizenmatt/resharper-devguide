@@ -44,8 +44,8 @@ static_files:
   "webhelp-template/app/css/styles.min.css": "app/css/"
   "webhelp-template/app/fonts/*": "app/fonts/"
   "webhelp-template/app/img/svg/*": "app/img/svg/"
-  "webhelp-template/app/favico.*": "app/"
-  "webhelp-template/app/*.png": "app/"
+  "webhelp-template/app/favicon.*": "/"
+  "webhelp-template/app/*.png": "/"
 
 exclude:
   - '*.scss'
