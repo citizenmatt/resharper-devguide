@@ -7,4 +7,5 @@ gem 'jekyll'
 
 group :jekyll_plugins do
   gem 'jekyll-redirect-from'
+  gem 'jekyll-git_metadata'
 end

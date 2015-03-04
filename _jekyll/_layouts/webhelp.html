@@ -23,7 +23,7 @@
     {% endcapture %}
     {% assign is_show_shortcut_switcher = 'false' %}
     {% assign current_year = 'now' | date:'%Y' %}
-    {% assign last_modified = '' %}
+    {% capture last_modified %}Last modified: {{ page.git.last_commit.commit_date | date: '%-d %B %Y' }}{% endcapture %}
     {% assign disqus = '' %}
     {% assign baseurl = '/devguide-test/' %}
 
